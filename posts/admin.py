@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post, PostComment
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -20,3 +20,10 @@ class PostAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(Post, PostAdmin)
+
+
+class PostCommentAdmin(admin.ModelAdmin):
+    list_display = ("post", "comment",)
+
+
+admin.site.register(PostComment, PostCommentAdmin)

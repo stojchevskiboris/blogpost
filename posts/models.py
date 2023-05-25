@@ -9,7 +9,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     content = models.TextField(null=True, blank=True)
-    files = models.FileField(upload_to="images/", max_length=254, null=True, blank=True)
+    files = models.FileField(upload_to="../data", max_length=254, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now_add=True)
 
@@ -18,6 +18,6 @@ class Post(models.Model):
 
 
 class PostComment(models.Model):
-    posted_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, blank=True)
     comment = models.TextField()

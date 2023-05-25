@@ -1,53 +1,88 @@
-<head>
-    <title>Add Post</title>
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-            crossorigin="anonymous"></script>
-</head>
-<body>
-<nav class="navbar navbar-expand-sm navbar-light bg-light">
-    <a class="navbar-brand border-end pe-2" href="{% url 'home' %}" style="margin-left: 30px;">Blog Posts</a>
-    <div class="navbar" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{% url 'home' %}">Posts</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{% url 'add' %}">Add new post</a>
-            </li>
-        </ul>
+{% extends 'base/main.html' %}
+{% block content %}
+    <div class="container">
+        <h5><a class="link-success" href="{% url 'home' %}">Back</a></h5><br>
+        <div id="post">
+
+
+            <h2>{{ post.title }}</h2><br>
+            <dl class="row">
+                <dt class="col-sm-2">Author</dt>
+                <dd class="col-sm-10"> {{ post.author }} </dd>
+
+                <dt class="col-sm-2">Content</dt>
+                <dd class="col-sm-10"> {{ post.content }} </dd>
+
+                <dt class="col-sm-2">Date created</dt>
+                <dd class="col-sm-10"> {{ post.date_created }} </dd>
+
+                <dt class="col-sm-2">Date modified</dt>
+                <dd class="col-sm-10"> {{ post.date_modified }} </dd>
+
+                <dt class="col-sm-2">Image</dt>
+                <dd class="col-sm-10"><img src="{{ MEDIA_URL }}{{ post.image.url }}" class="" alt="No image uploaded">
+                </dd>
+            </dl>
+        </div>
+        <hr>
+        <br>
+        <h5 class="text-center">Comments</h5>
+
+        {% for comment in comments %}
+            <div class="comments">
+                <p>Posted by: {{ comment.posted_by }}</p>
+                <p>Comment: {{ comment.comment }}</p>
+
+
+            </div>
+        {% endfor %}
+
+        <button class="btn btn-outline-primary" onclick="formBlock()">Add new comment</button>
+
+        <form id="f1" style="display:none;" action="{% url 'detail' post_id=post.id %}" method="POST"
+              enctype="multipart/form-data">
+            <br>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-success">Submit</button>
+        </form>
     </div>
-</nav>
-<div class="container">
-    <h5><a class="link-success" href="{% url 'home' %}">Back</a></h5><br>
-    <h2>{{ post.title }}</h2><br>
-    <dl class="row">
-        <dt class="col-sm-2">Author</dt>
-        <dd class="col-sm-10"> {{ post.author }} </dd>
 
-        <dt class="col-sm-2">Content</dt>
-        <dd class="col-sm-10"> {{ post.content }} </dd>
 
-        <dt class="col-sm-2">Date created</dt>
-        <dd class="col-sm-10"> {{ post.date_created }} </dd>
+    <script>
+        function formBlock() {
+            var display = document.getElementById('f1').style.display
+            if (display == 'none') {
+                document.getElementById('f1').style.display = 'block'
+                window.scrollTo(0, document.body.scrollHeight);
 
-        <dt class="col-sm-2">Date modified</dt>
-        <dd class="col-sm-10"> {{ post.date_modified }} </dd>
+            } else document.getElementById('f1').style.display = 'none'
 
-        <dt class="col-sm-2">Image </dt>
-        <dd class="col-sm-10"><img src="{{ MEDIA_URL }}{{ post.image.url }}" class="" alt="No image uploaded"></dd>
-    </dl><hr><br>
-    <h5 class="text-center">Comments</h5>
+        }
+    </script>
 
-</div>
-</body>
+    <style>
+        #f1 {
+            border: 1px solid lightgray;
 
-<style>
-    .form-control {
-        width: auto;
-    }
-</style>
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .comments {
+            border-radius: 5px;
+            border: 1px solid;
+            padding: 10px;
+            margin: 5px;
+        }
+
+        #post {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 20px;
+        }
+    </style>
+
+{% endblock %}

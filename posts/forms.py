@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, PostComment
 
 
 class PostForm(forms.ModelForm):
@@ -7,9 +7,22 @@ class PostForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
         for field in self.visible_fields():
-            print(field)
             field.field.widget.attrs["class"] = "form-control"
+            # field.field.widget.attrs["disabled"] = "true"
 
     class Meta:
         model = Post
         exclude = ("user",)
+
+
+class CommentForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
+        for field in self.visible_fields():
+            field.field.widget.attrs["class"] = "form-control"
+            # field.field.widget.attrs["disabled"] = "true"
+
+    class Meta:
+        model = PostComment
+        exclude = ()
