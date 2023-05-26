@@ -1,21 +1,20 @@
 {% extends 'base/main.html' %}
 {% block content %}
-<div class="container">
-
-    <h1>All posts</h1>
-    <h5><a class="link-success" href="{% url 'add' %}">Add new post</a></h5><br><br>
-    {% for post in posts %}
-        <div class="card m-3" style="max-width: 75%;">
-            <div class="card-body">
-                <h5 class="card-title">Title: {{ post.title }}</h5>
-                <p class="card-text">Author: {{ post.author }}</p>
-                <p class="card-text">Content: {{ post.content }}</p>
-                <p class="card-text">Date Created: {{ post.date_created }}</p>
+    <div class="container">
+        <h1>All posts</h1>
+        <h5><a class="link-success" href="{% url 'add' %}">Add new post</a></h5><br>
+        {% for post in posts %}
+            <div class="post">
+                <a href="{% url 'detail' post.id %}"><h2>{{ post.title }}</h2></a>
+                <p>Posted by: {{ post.author }}</p>
+                <hr>
+                <p class="blockquote">{{ post.content }}</p>
                 <img src="{{ MEDIA_URL }}{{ post.image.url }}" class="" alt="No image uploaded">
-            </div>
-            <a href="{% url 'detail' post.id %}" class="btn btn-outline-secondary">Open post</a>
-        </div><br>
-    {% endfor %}
+                <hr>
+                <p class="text-muted text-end">Posted on: {{ post.date_created }}</p>
+                {#                <a href="{% url 'detail' post.id %}" class="btn btn-outline-secondary">Open post</a>#}
+            </div><br>
+        {% endfor %}
 
-</div>
+    </div>
 {% endblock %}

@@ -1,0 +1,34 @@
+.form-control {
+    width: auto;
+}
+
+.comments {
+    border-radius: 15px;
+    border: 1px solid lightgray;
+    padding: 10px;
+    margin: 5px;
+}
+
+.post {
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid lightgray;
+}
+
+#f1 {
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#f12{
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.btnB{
+    text-align: right;
+}

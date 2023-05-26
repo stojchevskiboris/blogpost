@@ -2,87 +2,67 @@
 {% block content %}
     <div class="container">
         <h5><a class="link-success" href="{% url 'home' %}">Back</a></h5><br>
-        <div id="post">
-
-
-            <h2>{{ post.title }}</h2><br>
-            <dl class="row">
-                <dt class="col-sm-2">Author</dt>
-                <dd class="col-sm-10"> {{ post.author }} </dd>
-
-                <dt class="col-sm-2">Content</dt>
-                <dd class="col-sm-10"> {{ post.content }} </dd>
-
-                <dt class="col-sm-2">Date created</dt>
-                <dd class="col-sm-10"> {{ post.date_created }} </dd>
-
-                <dt class="col-sm-2">Date modified</dt>
-                <dd class="col-sm-10"> {{ post.date_modified }} </dd>
-
-                <dt class="col-sm-2">Image</dt>
-                <dd class="col-sm-10"><img src="{{ MEDIA_URL }}{{ post.image.url }}" class="" alt="No image uploaded">
-                </dd>
-            </dl>
+        <div class="post">
+            <h2>{{ post.title }}</h2>
+            <p>Posted by: {{ post.author }}</p>
+            <hr>
+            <p class="blockquote">{{ post.content }}</p>
+            <img src="{{ MEDIA_URL }}{{ post.image.url }}" class="" alt="No image uploaded">
+            <hr>
+            <p class="text-muted text-end">Posted on: {{ post.date_created }}</p>
+            <p class="text-muted text-end">Last modified: {{ post.date_modified }}</p>
+            <form action="{% url 'deletePost' post.id %}" method="POST">
+                {% csrf_token %}
+                <div class="btnB">
+                    <button class="btn btn-outline-danger" type="submit">Delete post</button>
+                </div>
+            </form>
         </div>
         <hr>
         <br>
-        <h5 class="text-center">Comments</h5>
+        <h5>Comments</h5><br>
 
         {% for comment in comments %}
             <div class="comments">
                 <p>Posted by: {{ comment.posted_by }}</p>
-                <p>Comment: {{ comment.comment }}</p>
+                <hr>
+                <p>{{ comment.comment }}</p>
+                <p class="text-muted text-end">{{ comment.comment_date }}</p>
 
-
+                <form action="{% url 'deleteComment' post.id comment.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="btnB">
+                        <button class="btn btn-outline-danger" type="submit">Delete comment</button>
+                    </div>
+                </form>
             </div>
         {% endfor %}
+        <br>
 
-        <button class="btn btn-outline-primary" onclick="formBlock()">Add new comment</button>
-
-        <form id="f1" style="display:none;" action="{% url 'detail' post_id=post.id %}" method="POST"
+        <button class="btn btn-outline-success" onclick="formBlock()">Add new comment</button>
+        <br><br>
+        <form id="f12" style="display:none;" action="{% url 'detail' post.id %}" method="POST"
               enctype="multipart/form-data">
             <br>
             {% csrf_token %}
             {{ form.as_p }}
-            <button class="btn btn-success">Submit</button>
+            <button class="btn btn-primary">Submit</button>
+
         </form>
     </div>
 
-
     <script>
         function formBlock() {
-            var display = document.getElementById('f1').style.display
-            if (display == 'none') {
-                document.getElementById('f1').style.display = 'block'
+            if (document.getElementById('f12').style.display == 'none') {
+                document.getElementById('f12').style.display = 'block'
                 window.scrollTo(0, document.body.scrollHeight);
-
-            } else document.getElementById('f1').style.display = 'none'
-
+            } else document.getElementById('f12').style.display = 'none'
         }
     </script>
-
     <style>
-        #f1 {
-            border: 1px solid lightgray;
-
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        .comments {
-            border-radius: 5px;
-            border: 1px solid;
-            padding: 10px;
-            margin: 5px;
-        }
-
-        #post {
-            background: #f8f8f8;
-            padding: 20px;
-            border-radius: 20px;
-        }
+    .btnB{
+            text-align: right;
+    }
     </style>
 
 {% endblock %}

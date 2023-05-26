@@ -12,7 +12,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        exclude = ("user",)
+        exclude = ("author",)
 
 
 class CommentForm(forms.ModelForm):
@@ -25,4 +25,4 @@ class CommentForm(forms.ModelForm):
 
     class Meta:
         model = PostComment
-        exclude = ()
+        exclude = ("posted_by", "post",)
