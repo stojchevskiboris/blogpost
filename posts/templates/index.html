@@ -6,14 +6,24 @@
         {% for post in posts %}
             <div class="post">
                 <a href="{% url 'detail' post.id %}"><h2>{{ post.title }}</h2></a>
-                <p>Posted by: {{ post.author }}</p>
+                <p>Posted by: <i>{{ post.author }}</i></p>
                 <hr>
                 <p class="blockquote">{{ post.content }}</p>
-                <img src="{{ MEDIA_URL }}{{ post.image.url }}" class="" alt="No image uploaded">
+                {% if post.image %}
+                    <div class="imgDiv">
+                        <a href="{% url 'detail' post.id %}"><img class="imgPost"
+                                                                  src="{{ MEDIA_URL }}{{ post.image.url }}"
+                                                                  alt="No image uploaded"></a>
+                    </div>
+                {% endif %}
                 <hr>
                 <p class="text-muted text-end">Posted on: {{ post.date_created }}</p>
-                {#                <a href="{% url 'detail' post.id %}" class="btn btn-outline-secondary">Open post</a>#}
-            </div><br>
+                <p class="text-muted text-end">Last modified: {{ post.date_modified }}</p>
+                <div class="text-center">
+                    <a href="{% url 'detail' post.id %}" class="btn btn-lg btn-outline-primary">Open post</a>
+                </div>
+            </div>
+            <br>
         {% endfor %}
 
     </div>

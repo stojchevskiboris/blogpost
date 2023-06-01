@@ -4,19 +4,33 @@
         <h5><a class="link-success" href="{% url 'home' %}">Back</a></h5><br>
         <div class="post">
             <h2>{{ post.title }}</h2>
-            <p>Posted by: {{ post.author }}</p>
+            <p>Posted by: <i>{{ post.author }}</i></p>
             <hr>
             <p class="blockquote">{{ post.content }}</p>
-            <img src="{{ MEDIA_URL }}{{ post.image.url }}" class="" alt="No image uploaded">
+            {% if post.image %}
+                <div class="imgDiv">
+                    <img class="imgPost" src="{{ MEDIA_URL }}{{ post.image.url }}" alt="No image uploaded">
+                </div>
+            {% endif %}
             <hr>
             <p class="text-muted text-end">Posted on: {{ post.date_created }}</p>
             <p class="text-muted text-end">Last modified: {{ post.date_modified }}</p>
-            <form action="{% url 'deletePost' post.id %}" method="POST">
-                {% csrf_token %}
-                <div class="btnB">
-                    <button class="btn btn-outline-danger" type="submit">Delete post</button>
+            {% if request.user == post.author %}
+                <div class="buttons">
+                    <div class="btnL">
+                        <form action="{% url 'editPost' post.id %}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-primary" type="submit">Edit post</button>
+                        </form>
+                    </div>
+                    <div class="btnR">
+                        <form action="{% url 'deletePost' post.id %}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-danger" type="submit">Delete post</button>
+                        </form>
+                    </div>
                 </div>
-            </form>
+            {% endif %}
         </div>
         <hr>
         <br>
@@ -28,13 +42,16 @@
                 <hr>
                 <p>{{ comment.comment }}</p>
                 <p class="text-muted text-end">{{ comment.comment_date }}</p>
-
-                <form action="{% url 'deleteComment' post.id comment.id %}" method="POST">
-                    {% csrf_token %}
-                    <div class="btnB">
-                        <button class="btn btn-outline-danger" type="submit">Delete comment</button>
+                {% if request.user == comment.posted_by %}
+                    <div class="btnRR">
+                        <form action="{% url 'deleteComment' post.id comment.id %}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-danger" type="submit">Delete comment</button>
+                        </form>
                     </div>
-                </form>
+                {% endif %}
+
+
             </div>
         {% endfor %}
         <br>
@@ -46,23 +63,11 @@
             <br>
             {% csrf_token %}
             {{ form.as_p }}
-            <button class="btn btn-primary">Submit</button>
+
+            <button class="btn btn-primary" type="submit">Submit</button>
 
         </form>
     </div>
 
-    <script>
-        function formBlock() {
-            if (document.getElementById('f12').style.display == 'none') {
-                document.getElementById('f12').style.display = 'block'
-                window.scrollTo(0, document.body.scrollHeight);
-            } else document.getElementById('f12').style.display = 'none'
-        }
-    </script>
-    <style>
-    .btnB{
-            text-align: right;
-    }
-    </style>
 
 {% endblock %}

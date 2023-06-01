@@ -1,0 +1,15 @@
+<hr>
+<footer class=" container d-flex flex-wrap justify-content-between align-items-center py-3 my-4">
+    <div class="col-md-11 d-flex align-items-center">
+        <img src="../../../static/staticfiles/logo.png" class="bi" width="35"></img>
+        <span class="text-muted">© <span id="year"></span> Blog-Post Company</span>
+    </div>
+    <div class="col-md">
+        <span><a href="https://github.com/stojchevskiboris/blogpost">
+            <img src="../../../static/staticfiles/git.png" class="bi" width="25"> Repo</a></span>
+    </div>
+</footer>
+
+<script>
+    document.getElementById("year").innerText = new Date().getFullYear()
+</script>

@@ -1,0 +1,19 @@
+{% extends 'base/main.html' %}
+{% block content %}
+    <div class="container">
+        <h1>Blocked users for <i style="color: blue">{{ user.username }}</i></h1>
+<br>
+        {% if user.blockedUsers %}
+            <ul>
+                {% for blocked in user.blockedUsers %}
+                    <li>{{ blocked.username }}</li>
+
+                {% endfor %}
+            </ul>
+
+        {% else %}
+            <h5>No blocked users :)</h5>
+
+        {% endif %}
+    </div>
+{% endblock %}

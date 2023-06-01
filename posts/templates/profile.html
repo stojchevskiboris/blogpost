@@ -1,0 +1,22 @@
+{% extends 'base/main.html' %}
+{% block content %}
+    <div class="container">
+        <h1>Profile overview for <i style="color: blue">{{ user.username }}</i></h1>
+        <table class="table table-lg">
+            <tbody>
+            <tr></tr>
+                <td>First name: </td>
+                <td>{{ user.first_name }}</td>
+            <tr></tr>
+                <td>Last name: </td>
+                <td>{{ user.last_name }}</td>
+            <tr></tr>
+                <td>Email: </td>
+                <td>{{ user.email }}</td>
+            <tr></tr>
+                <td>Date joined: </td>
+                <td>{{ user.date_joined }}</td>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
