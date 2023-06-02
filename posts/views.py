@@ -4,7 +4,9 @@ from .models import Post, PostComment
 from .forms import PostForm, CommentForm
 from datetime import datetime
 from django.contrib.auth.signals import user_logged_in, user_logged_out, user_login_failed
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import AnonymousUser, User
+
+
 
 # Create your views here.
 
@@ -104,7 +106,8 @@ def profile(request):
 
 def blockedUsers(request):
     user = request.user
-    context = {"user": user}
+    profiles = User.objects.all();
+    context = {"user": user, "profiles": profiles}
     return render(request, 'blockedUsers.html', context)
 
 
@@ -114,8 +117,6 @@ def loginView(request):
 
 def logoutView(request):
     print("test")
-
-
 
     user = getattr(request, "user", None)
     if not getattr(user, "is_authenticated", True):

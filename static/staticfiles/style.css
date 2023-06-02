@@ -60,3 +60,9 @@
 .btnRR{
     text-align: right;
 }
+.navbar{
+    font-size: 1.2rem;
+}
+.navbar-brand{
+    font-size: 1.4rem;
+}

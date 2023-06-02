@@ -1,35 +1,33 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-light">
+<nav class="navbar navbar-expand-sm navbar-light bg-light justify-content-between pe-5">
 
     <a class="navbar-brand border-end pe-2" href="{% url 'home' %}" style="margin-left: 30px;">
         <img width="35" src="../../../static/staticfiles/logo.png">
         Blog Posts
     </a>
-    <div class="navbar" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto me-2">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Posts</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'add' %}">Add new post</a>
-            </li>
-        </ul>
+    <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Posts</a>
 
-        {% if user.is_authenticated %}
-            <div class="nav-item me-3">
-                <a class="nav-link" aria-current="page" href="{% url 'blockedUsers' %}">Blocked users</a>
-            </div>
-            <div class="nav-item me-3">
-                <a class="text-primary nav-link" aria-current="page" href="{% url 'profile' %}"><img width="25" src="../../../static/staticfiles/userIcon.png"><span>{{ request.user }}</span></a>
-            </div>
-            <div class="nav-item">
-                <a class="text-danger nav-link" aria-current="page" href="{% url 'logoutView' %}">Logout</a>
-            </div>
-        {% else %}
-            <div class="nav-item">
-                <a class="nav-link" aria-current="page" href="{% url 'login' %}">Login</a>
-            </div>
-        {% endif %}
+    <a class="nav-link active" aria-current="page" href="{% url 'add' %}">Add new post</a>
 
+    <a></a><a></a><a></a><a></a><a></a><a></a><a></a><a></a><a></a><a></a><a></a><a></a><a></a>
 
+    {% if user.is_authenticated %}
+
+    <div class="nav-item ">
+        <a class="nav-link" aria-current="page" href="{% url 'blockedUsers' %}">Blocked users</a>
     </div>
+    <div class="nav-item">
+        <a class="text-primary nav-link" aria-current="page" href="{% url 'profile' %}"><img width="25"
+                                                                                             src="../../../static/staticfiles/userIcon.png"><span>{{ request.user }}</span></a>
+    </div>
+    <div class="nav-item">
+        <a class="text-danger nav-link" aria-current="page" href="{% url 'logoutView' %}">Logout</a>
+    </div>
+
+    {% else %}
+
+    <div class="nav-item">
+        <a class="nav-link" aria-current="page" href="{% url 'login' %}">Login</a>
+    </div>
+
+    {% endif %}
 </nav><br>

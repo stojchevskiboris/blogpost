@@ -2,7 +2,7 @@
 {% block content %}
     <div class="container">
         <h1>Blocked users for <i style="color: blue">{{ user.username }}</i></h1>
-<br>
+        <br>
         {% if user.blockedUsers %}
             <ul>
                 {% for blocked in user.blockedUsers %}
@@ -12,8 +12,20 @@
             </ul>
 
         {% else %}
-            <h5>No blocked users :)</h5>
+            <h6 id="noB">No blocked users :)</h6>
 
         {% endif %}
+
+        <hr>
+
+        <label for="selectForm">Block user</label>
+
+        <select id="selectForm" class="form-select">
+            {% for profile in profiles %}
+                <option>{{ profile }}</option>
+            {% endfor %}
+        </select><br>
+    <button id="selectBtn" class="btn btn-warning">Block selected</button>
     </div>
+
 {% endblock %}

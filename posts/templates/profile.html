@@ -5,17 +5,23 @@
         <table class="table table-lg">
             <tbody>
             <tr></tr>
-                <td>First name: </td>
-                <td>{{ user.first_name }}</td>
+            <td>Username:</td>
+            <td>{{ user.username }}</td>
             <tr></tr>
-                <td>Last name: </td>
-                <td>{{ user.last_name }}</td>
+            <td>First name:</td>
+            <td>{{ user.first_name }}</td>
             <tr></tr>
-                <td>Email: </td>
-                <td>{{ user.email }}</td>
+            <td>Last name:</td>
+            <td>{{ user.last_name }}</td>
             <tr></tr>
-                <td>Date joined: </td>
-                <td>{{ user.date_joined }}</td>
+            <td>Email:</td>
+            <td>{{ user.email }}</td>
+            <tr></tr>
+            <td>Date joined:</td>
+            <td>{{ user.date_joined }}</td>
+            <tr></tr>
+            <td>Staff status:</td>
+            <td>{{ user.is_staff }}</td>
             </tbody>
         </table>
     </div>
