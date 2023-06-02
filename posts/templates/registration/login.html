@@ -6,8 +6,15 @@
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Log In</button>
+            <button class="btn btn-success" type="submit">Log In</button>
         </form>
 
     </div>
+
+    <script>
+        var inputs = document.getElementsByTagName("input");
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].classList.add("form-control");
+        }
+    </script>
 {% endblock %}
